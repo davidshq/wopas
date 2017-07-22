@@ -9,5 +9,5 @@
 /.vs
 /.vs/slnx.sqlite
 
-# Local Settings
 env/
+json_library/

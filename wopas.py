@@ -11,6 +11,40 @@ if sys.version < '3':
 else:
     import json
 
+
+def folder_path(folder_name="plugins"):
+    """
+    Sets folder to download results to
+    """
+    if not os.path.exists("json_library"):
+        os.mkdir("json_library")
+    folder_path = os.path.join("json_library", folder_name)
+    if not os.path.exists(folder_path):
+        os.mkdir(folder_path)
+    return folder_path
+
+
+def choose_folder():
+    """
+    Takes user input to select a folder for json results
+    """
+    print("Use default folder? (Y/N)")
+    select_folder = input(">> ")
+
+    if select_folder.lower() in ["yes", "y"]:
+        path = folder_path()
+    else:
+        print("Enter desired folder name:")
+        path = folder_path(input(">> "))
+
+    return path
+
+# Added a download folder we can drop everyhing into, when we update the API
+# call to get different types of objects, user will be able to specify path
+# for each object type
+download_folder = choose_folder()
+
+
 # Calls WP API to get page of Plugin Results, also returns last_page so we can
 # terminate our loop when we have all our data
 def get_plugin_info_page(page_number):
@@ -27,16 +61,10 @@ def get_plugin_info_page(page_number):
 
     return wp_plugins, num_pages
 
-# Make plugins folder if it doesn't exist
-# TODO: Allow user input to determine path
-if not os.path.exists('plugins'):
-    os.mkdir('plugins')
-
 # Set initial values for last_page and page_number
 # TODO: This will need to change once user input is accepted
 last_page = 1
 page_number = 1
-
 # Loops until page number = last_page (+1 because we still want the last page)
 while page_number is not last_page + 1:
 
@@ -54,8 +82,8 @@ while page_number is not last_page + 1:
 
         # I hate encoding/decoding crap and this took me forever to get working. Windows is the worst.
         # TODO: Remember to make 'plugins' a variable once user input accepted.
-        with open(os.path.join('plugins', file), 'w+', encoding='utf-8', errors="replace") as outfile:
-            json_data = json.dumps(plug, sort_keys=False, indent=4) # TODO: Add user input parameters for options.
+        with open(os.path.join(download_folder, file), 'w+', encoding='utf-8', errors="replace") as outfile:
+            json_data = json.dumps(plug, sort_keys=False, indent=4)  # TODO: Add user input parameters for options.
 
             # html.unescape will remove all those weird characters, they're like PHP line breaks or something
             php_crap_removed = html.unescape(json_data)
