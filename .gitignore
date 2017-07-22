@@ -8,3 +8,6 @@
 /.vs/slnx.sqlite
 /.vs
 /.vs/slnx.sqlite
+
+# Local Settings
+env/
