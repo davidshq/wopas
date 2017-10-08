@@ -46,20 +46,16 @@ while page_number is not last_page + 1:
     plugins, last_page = get_plugin_info_page(page_number)
 
     # Loop through wp_plugin data
-    for plug in plugins:
-        plugin_name = plug['name']
+    for plugin in plugins:
+        plugin_name = plugin['name']
 
         # Save to a Folder so we don't clutter current directory
-        file = "plug{}.json".format(plug['slug'])  # Slug is the plugin name without spaces, usually used to create URLs
+        file = "plugin-{}.json".format(plugin['slug'])  # Slug is the plugin name without spaces, usually used to create URLs
 
-        # I hate encoding/decoding crap and this took me forever to get working. Windows is the worst.
         # TODO: Remember to make 'plugins' a variable once user input accepted.
         with open(os.path.join('plugins', file), 'w+', encoding='utf-8', errors="replace") as outfile:
-            json_data = json.dumps(plug, sort_keys=False, indent=4) # TODO: Add user input parameters for options.
-
-            # html.unescape will remove all those weird characters, they're like PHP line breaks or something
-            php_crap_removed = html.unescape(json_data)
-            outfile.write(php_crap_removed)
+            json_data = json.dumps(plugin, sort_keys=False, indent=4) # TODO: Add user input parameters for options.
+            outfile.write(json_data)
             print("Plugin {} added".format(plugin_name))
 
     print("Page {} of {} total pages complete".format(page_number, last_page))
