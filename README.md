@@ -10,7 +10,11 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 - Allowing one to limit the number of results returned (right now it grabs all of them).
 
 # Release History
+- 0.3.1 - 12/4/17:
+	- Corrected error introduced in 0.3 which caused prompting for user input repeatedly.
 - 0.3 - 12/4/17:
+	- Added initial logic for choosing the sort used when returning plugins.
+	- Added ability to choose how many results to return.
 	- Added requirements.txt
 	- Updated .gitignore
 	- Response from WP API seems to have changed from list to dictionary causing an error, fixed.
