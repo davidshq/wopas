@@ -1,9 +1,9 @@
-
 import requests
 import os.path
 import html
 import sys
 import time
+import pdb
 # Python 3 has the json library, if we are running Python 2 we need to use simplejson,
 # which emulates the Python 3 library.
 if sys.version < '3':
@@ -23,14 +23,14 @@ def get_plugin_info_page(page_number):
     json_data = response.json()
 
     num_pages = json_data['info']['pages']
-    wp_plugins = json_data['plugins']
+    plugins = json_data['plugins']
 
-    return wp_plugins, num_pages
+    return plugins, num_pages
 
-# Make plugins folder if it doesn't exist
-# TODO: Allow user input to determine path
-if not os.path.exists('plugins'):
-    os.mkdir('plugins')
+# Allow user to enter path they want to store plugin data in.
+selectpath = input('Where do you want to store the plugin data?')
+if not os.path.exists(selectpath):
+    os.mkdir(selectpath)
 
 # Set initial values for last_page and page_number
 # TODO: This will need to change once user input is accepted
@@ -45,15 +45,16 @@ while page_number is not last_page + 1:
     # TODO: This too, maybe using a variable that detects whether last_page is user input or all
     plugins, last_page = get_plugin_info_page(page_number)
 
+
     # Loop through wp_plugin data
-    for plugin in plugins:
+    for pid, plugin in plugins.items():
         plugin_name = plugin['name']
 
         # Save to a Folder so we don't clutter current directory
         file = "plugin-{}.json".format(plugin['slug'])  # Slug is the plugin name without spaces, usually used to create URLs
 
         # TODO: Remember to make 'plugins' a variable once user input accepted.
-        with open(os.path.join('plugins', file), 'w+', encoding='utf-8', errors="replace") as outfile:
+        with open(os.path.join(selectpath, file), 'w+', encoding='utf-8', errors="replace") as outfile:
             json_data = json.dumps(plugin, sort_keys=False, indent=4) # TODO: Add user input parameters for options.
             outfile.write(json_data)
             print("Plugin {} added".format(plugin_name))
