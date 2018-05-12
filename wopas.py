@@ -31,12 +31,15 @@ if not os.path.exists(selectpath):
 # TODO: Take user input for requests per page, type of browse, page range (including all)
 plugins_per_page = input('How many plugins do you want to be returned in each API response? [Default: 250]')
 plugins_order = input('In what order do you want the results returned? [Default: popular]')
+multiple_files = input('Should each plugin be saved to a separate JSON file? [Default: N]')
 if not plugins_per_page:
     plugins_per_page = 250
 # Bahh! WP.org API is returning a dict when querying popular but a list when querying featured
-# For right now, just use featured, until I work out logic to respond with processing by dict/list as needed.
+# For right now, just use popular, until I work out logic to respond with processing by dict/list as needed.
 if not plugins_order:
     plugins_order = 'popular'
+if not multiple_files:
+    multiple_files = 'N'
 
 # Set initial values for last_page and page_number
 # TODO: This will need to change once user input is accepted
@@ -55,10 +58,13 @@ while page_number is not last_page + 1:
     for pid, plugin in plugins.items():
         plugin_name = plugin['name']
 
-        # Save to a Folder so we don't clutter current directory
-        file = "plugin-{}.json".format(plugin['slug'])  # Slug is the plugin name without spaces, usually used to create URLs
+        if multiple_files is 'N':
+            file = "wp-plugins.json"
 
-        with open(os.path.join(selectpath, file), 'w+', encoding='utf-8', errors="replace") as outfile:
+        if multiple_files is 'Y':
+            file = "plugin-{}.json".format(plugin['slug'])  # Slug is the plugin name without spaces, usually used to create URLs
+
+        with open(os.path.join(selectpath, file), 'a+', encoding='utf-8', errors="replace") as outfile:
             json_data = json.dumps(plugin, sort_keys=False, indent=4) # TODO: Add user input parameters for options.
             outfile.write(json_data)
             print("Plugin {} added".format(plugin_name))
