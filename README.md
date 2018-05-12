@@ -10,6 +10,9 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 - Allowing one to limit the number of results returned (right now it grabs all of them).
 
 # Release History
+- 0.4 - 5/12/18:
+    - Added ability to choose between each plugin getting its own file and all plugins being compiled in one file.
+    - Moved get_plugin_info_page into its own file.
 - 0.3.1 - 12/4/17:
 	- Corrected error introduced in 0.3 which caused prompting for user input repeatedly.
 - 0.3 - 12/4/17:
