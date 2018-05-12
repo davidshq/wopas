@@ -4,12 +4,9 @@ import html
 import sys
 import time
 import pdb
+import json
 # Python 3 has the json library, if we are running Python 2 we need to use simplejson,
 # which emulates the Python 3 library.
-if sys.version < '3':
-    import simplejson as json
-else:
-    import json
 
 # Calls WP API to get page of Plugin Results, also returns last_page so we can
 # terminate our loop when we have all our data
