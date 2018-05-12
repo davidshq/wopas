@@ -14,3 +14,4 @@ env/
 /wopas-git.pyproj
 /wopas-git.pyproj.user
 /wopas-git.sln
+/__pycache__

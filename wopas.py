@@ -5,23 +5,11 @@ import sys
 import time
 import pdb
 import json
+import get_plugin_info_page
+from get_plugin_info_page import get_plugin_info_page
 # Python 3 has the json library, if we are running Python 2 we need to use simplejson,
 # which emulates the Python 3 library.
 
-# Calls WP API to get page of Plugin Results, also returns last_page so we can
-# terminate our loop when we have all our data
-def get_plugin_info_page(page_number):
-    # Added the per_page param to the endpoint so we can get more results per request
-    # Each request will also take longer, so we're slowing down our rate a bit
-    url = 'https://api.wordpress.org/plugins/info/1.1/?action=query_plugins& \
-           request[per_page]={}&request[browse]={}&request[page]={}'.format(plugins_per_page, plugins_order, page_number)
-    response = requests.get(url)
-    json_data = response.json()
-
-    num_pages = json_data['info']['pages']
-    plugins = json_data['plugins']
-
-    return plugins, num_pages
 
 # Allow user to enter path they want to store plugin data in.
 selectpath = input('Where do you want to store the plugin data?')
@@ -52,7 +40,7 @@ while page_number is not last_page + 1:
     # last_page is updated after the first loop
     # everytime really, but this shouldn't add any overhead
     # TODO: This too, maybe using a variable that detects whether last_page is user input or all
-    plugins, last_page = get_plugin_info_page(page_number)
+    plugins, last_page = get_plugin_info_page(page_number, plugins_per_page, plugins_order, multiple_files)
 
     # Loop through wp_plugin data
     for pid, plugin in plugins.items():
