@@ -10,6 +10,13 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 - Allowing one to limit the number of results returned (right now it grabs all of them).
 
 # Release History
+- 0.5. - 5/13/18:
+    - API request now asks that description and sections not be included in file, significantly decreases amount of data received.
+    - WP.org API inconsistently returns dicts or lists, added code that detects what is being returned and converts to dict if necessary.
+    - Added logic to add [ at the beginning and ] at the end of single file JSON output to enclose all JSON objects in an array.
+    - Added logic to place commas between JSON objects in a single file.
+    - Added separate script that reads in the JSON file and outputs it without the versions info. This can be easily modified to remove any info. desired.
+    - HT to AlexCoventry, Rascal_Two, and Zigity_Zagity on the LearnPython subreddit for helping me work through these enhancements.
 - 0.4 - 5/12/18:
     - Added ability to choose between each plugin getting its own file and all plugins being compiled in one file.
     - Moved get_plugin_info_page into its own file.
