@@ -10,7 +10,12 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 - Allowing one to limit the number of results returned (right now it grabs all of them).
 
 # Release History
-- 0.5. - 5/13/18:
+- 0.6 - 5/22/18:
+  - API now asks user to provide parameters for starting and ending pages.
+  - Breaking out minimal functionality into separate files for testing in small-bits folder.
+  - Added delete_json_elements.py which provides basic method for removing elements from a saved json file.
+  - Bug fixes, code cleanup, comments, and introduction of new bugs. :)
+- 0.5 - 5/13/18:
     - API request now asks that description and sections not be included in file, significantly decreases amount of data received.
     - WP.org API inconsistently returns dicts or lists, added code that detects what is being returned and converts to dict if necessary.
     - Added logic to add [ at the beginning and ] at the end of single file JSON output to enclose all JSON objects in an array.
