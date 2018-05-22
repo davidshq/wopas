@@ -21,9 +21,9 @@ def get_plugin_info_page(page_number, plugins_per_page, plugins_order, multiple_
     plugins = raw_plugins
 
     if type(plugins) == dict:
-        return plugins, num_pages
+        return plugins
     else:
         plugins = {}
         for i, plugin in enumerate(raw_plugins):
             plugins[i] = plugin
-        return plugins, num_pages
+        return plugins
