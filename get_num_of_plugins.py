@@ -4,7 +4,7 @@ import sys
 import time
 import json
 
-def get_basic_plugin_info():
+def get_num_of_plugins():
     url = 'https://api.wordpress.org/plugins/info/1.1/?action=query_plugins& \
     request[browse]=popular'
 

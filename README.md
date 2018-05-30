@@ -7,9 +7,11 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 
 # What's Next
 - Adding the ability to choose what query you want to run against the API.
-- Allowing one to limit the number of results returned (right now it grabs all of them).
 
 # Release History
+- 0.7 - 5/29/18:
+  - One can now limit the number of pages of results returned.
+  - Refactoring to make the code more OOP.
 - 0.6 - 5/22/18:
   - API now asks user to provide parameters for starting and ending pages.
   - Breaking out minimal functionality into separate files for testing in small-bits folder.

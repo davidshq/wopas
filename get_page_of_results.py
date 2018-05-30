@@ -8,7 +8,7 @@ import json
 
 # Calls WP API to get page of Plugin Results, also returns last_page so we can
 # terminate our loop when we have all our data
-def get_plugin_info_page(page_number, plugins_per_page, plugins_order, multiple_files):
+def get_page_of_results(page_number, plugins_per_page, plugins_order, multiple_files):
     # Added the per_page param to the endpoint so we can get more results per request
     # Each request will also take longer, so we're slowing down our rate a bit
     url = 'https://api.wordpress.org/plugins/info/1.1/?action=query_plugins& \
