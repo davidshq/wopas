@@ -14,6 +14,10 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 - Adding the ability to choose what query you want to run against the API.
 
 # Release History
+- 0.9 - 3/21/19:
+  - This is what happens when you don't touch a codebase for a long time and then come back to it...Simplifying code to make it easier to build out again
+  - Code no longer offers option to save plugins to individual files and get_page_of_results.py has been deprecated; may be recreated later.
+  - wopas.py now includes preset values that allow bypassing interactivity; you'll need to comment out preset values and uncomment lines as instructed in wopas.py to reenable interactive mode.
 - 0.8 - 3/9/19:
   - Updated example code and renamed folder/file to learn/basic_api_call.py
 - 0.7 - 5/29/18:

@@ -4,61 +4,64 @@ import html
 import sys
 import time
 import json
-import get_page_of_results
-from get_page_of_results import get_page_of_results
 import get_num_of_plugins
 from get_num_of_plugins import get_num_of_plugins
-import ask_setup_questions
-from ask_setup_questions import ask_setup_questions
+# !!Uncomment below to use interactively!!
+# import ask_setup_questions
+# from ask_setup_questions import ask_setup_questions
+
+# Ask questions to determine what query is used against the API.
+# plugins_per_page, plugins_order, starting_page, ending_page, select_path = ask_setup_questions(avail_num_results)
+# !!Uncomment above to use interactively!!
 
 # Get the total number of plugins available from the WordPress.org Plugin API.
 avail_num_results = get_num_of_plugins()
 
-# Ask questions to determine what query is used against the API.
-plugins_per_page, plugins_order, starting_page, ending_page, select_path, multiple_files = ask_setup_questions(avail_num_results)
+# !!Comment below out to use interactively!!
+# Set parameters below to determine what query is run against API.
+plugins_per_page = 250 # 10
+plugins_order = 'popular'
+starting_page = 1
+ending_page = 3 # int(round(avail_num_results/plugins_per_page))
+select_path = "E:\wopas"
+# !!Comment above out to use interactively!!
 
-page_number = int(starting_page) # The Page of API results we are going to start returning results from.
-last_page = int(ending_page) # The Last Page of API results we are going to return results from.
-plugin_number = 1 # This is just a number we increment with each plugin we add so that people know something is actually happening.
+# Set variables for first page and last page of API results to be retrieved.
+# page_number will be incremented as we loop through pages of API results.
+page_number = int(starting_page)
+last_page = int(ending_page)
 
-# Loops until page number = last_page (+1 because we still want the last page)
+# Initialize a variable to track the plugin number we are currently on.
+plugin_number = 1
+
+# Initialize a dictionary we'll store all of the plugin data in.
+plugins = {}
+
+# Loop that executes until page_number is equal to last_page + 1.
 while page_number is not last_page + 1:
+    # The API call we will be making.
+    url = 'https://api.wordpress.org/plugins/info/1.1/?action=query_plugins& \
+    request[per_page]={}&request[browse]={}&request[page]={}&request[fields][description]=0 \
+    &request[fields][sections]=0'.format(plugins_per_page, plugins_order, page_number)
 
-    plugins = get_page_of_results(page_number, plugins_per_page, plugins_order, multiple_files)
+    # Make the call, store reply in response.
+    response = requests.get(url)
 
-    # Loop through wp_plugin data
-    for pid, plugin in plugins.items():
-        plugin_name = plugin['name']
+    # Store only the JSON portion of the response in json_data
+    json_data = response.json()
 
-        # Put everything in one file.
-        if multiple_files == 'N':
-            file = "wp-plugins.json"
+    # Get the total number of pages of results available using configured variables above.
+    num_pages = json_data['info']['pages']
 
-        # Give each plugin its own file.
-        if multiple_files == 'Y':
-            file = "plugin-{}.json".format(plugin['slug'])  # Slug is the plugin name without spaces, usually used to create URLs
+    # Store only the plugins portion of the JSON data
+    json_plugins = json_data['plugins']
 
-        with open(os.path.join(select_path, file), 'a+', encoding='utf-8', errors="replace") as outfile:
-            if plugin_number == 1 and multiple_files == 'N': # We need to place each plugin object within a containing array.
-                outfile.write('[')
-
-            json_data = json.dumps(plugin, sort_keys=False, indent=4) # TODO: Add user input parameters for options.
-            outfile.write(json_data)
-            if multiple_files == 'N': # We need to separate each plugin object within the container array if using a single file.
-                outfile.write(',')
-            print("Plugin Number {} Named: {} added".format(plugin_number, plugin_name))
-        plugin_number +=1
-
-    print("Page {} of {} total pages complete".format(page_number, last_page))
+    # For each JSON object in json_plugins, add an object to dictionary plugin
+    for id, plugin in enumerate(json_plugins):
+            plugins[id] = plugin
     page_number += 1
-    time.sleep(2)
 
-# When we've finished processing all the individual plugins
-if multiple_files == 'N':
-    # Remove the last comma
-    # with open(os.path.join(selectpath, file), '+r', errors="replace") as outfile:
-    # outfile.seek(-1, os.SEEK_END)
-    # outfile.truncate()
-    # Close the container array
-    with open(os.path.join(select_path, file), 'a+', encoding='utf-8', errors="replace") as outfile:
-        outfile.write(']')
+file = "wp-plugins.json"
+with open(os.path.join(select_path, file), 'a+', encoding='utf-8', errors="replace") as outfile:
+    json.dump(json_plugins, outfile, sort_keys=False, indent=4)
+

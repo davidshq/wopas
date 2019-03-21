@@ -27,8 +27,5 @@ def ask_setup_questions(avail_num_results):
     select_path = input('Where do you want to store the plugin data?')
     if not os.path.exists(select_path):
         os.mkdir(select_path)
-    multiple_files = input('Should each plugin be saved to a separate JSON file? [Default: N]')
-    if not multiple_files:
-        multiple_files = 'N'
 
-    return plugins_per_page, plugins_order, starting_page, ending_page, select_path, multiple_files
+    return plugins_per_page, plugins_order, starting_page, ending_page, select_path
