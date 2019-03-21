@@ -5,10 +5,17 @@ plugin contents.
 
 Please use responsibly (aka, don't hammer the WordPress.org servers!)
 
+# Things You Should Know
+- WOPAS uses pipenv for package/dependency management, this is preferred over requirements.txt
+- WOPAS uses the popular requests library for querying the WP.org API but then uses the native Python JSON library for manipulation of the returned results because the requests JSON functionality is fairly basic.
+- The application has moved from interactive to config file driven. Desired settings are configured in wopas.ini.
+
 # What's Next
 - Adding the ability to choose what query you want to run against the API.
 
 # Release History
+- 0.8 - 3/9/19:
+  - Updated example code and renamed folder/file to learn/basic_api_call.py
 - 0.7 - 5/29/18:
   - One can now limit the number of pages of results returned.
   - Refactoring to make the code more OOP.

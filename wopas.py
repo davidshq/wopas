@@ -19,7 +19,7 @@ plugins_per_page, plugins_order, starting_page, ending_page, select_path, multip
 
 page_number = int(starting_page) # The Page of API results we are going to start returning results from.
 last_page = int(ending_page) # The Last Page of API results we are going to return results from.
-plugin_number = 1
+plugin_number = 1 # This is just a number we increment with each plugin we add so that people know something is actually happening.
 
 # Loops until page number = last_page (+1 because we still want the last page)
 while page_number is not last_page + 1:
