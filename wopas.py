@@ -4,27 +4,25 @@ import html
 import sys
 import time
 import json
+import ask_setup_questions
+from ask_setup_questions import ask_setup_questions
+import use_preset_values
+from use_preset_values import use_preset_values
 import get_num_of_plugins
 from get_num_of_plugins import get_num_of_plugins
-# !!Uncomment below to use interactively!!
-# import ask_setup_questions
-# from ask_setup_questions import ask_setup_questions
-
-# Ask questions to determine what query is used against the API.
-# plugins_per_page, plugins_order, starting_page, ending_page, select_path = ask_setup_questions(avail_num_results)
-# !!Uncomment above to use interactively!!
 
 # Get the total number of plugins available from the WordPress.org Plugin API.
 avail_num_results = get_num_of_plugins()
 
-# !!Comment below out to use interactively!!
-# Set parameters below to determine what query is run against API.
-plugins_per_page = 250 # 10
-plugins_order = 'popular'
-starting_page = 1
-ending_page = 3 # int(round(avail_num_results/plugins_per_page))
-select_path = "E:\wopas"
-# !!Comment above out to use interactively!!
+# Will we be running interactively or using presets?
+interactive_query = input('Do you want to configure how WOPAS queries the API? (Y or N)')
+if interactive_query == 'Y':
+    # Ask questions to determine what query is used against the API.
+    plugins_per_page, plugins_order, starting_page, ending_page, select_path = ask_setup_questions(avail_num_results)
+else:
+    # Use preset values to query against API.
+    plugins_per_page, plugins_order, starting_page, ending_page, select_path = use_preset_values(avail_num_results)
+
 
 # Set variables for first page and last page of API results to be retrieved.
 # page_number will be incremented as we loop through pages of API results.

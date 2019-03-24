@@ -1,3 +1,7 @@
+- 1.0 - 3/24/19:
+  - Moved preset values into own function in separate file.
+  - Added option to choose between presets and interactive mode.
+  - Reenable interactive mode.
 - 0.9 - 3/21/19:
   - This is what happens when you don't touch a codebase for a long time and then come back to it...Simplifying code to make it easier to build out again
   - Code no longer offers option to save plugins to individual files and get_page_of_results.py has been deprecated; may be recreated later.
