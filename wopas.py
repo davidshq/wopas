@@ -42,23 +42,24 @@ while page_number is not last_page + 1:
     request[per_page]={}&request[browse]={}&request[page]={}&request[fields][description]=0 \
     &request[fields][sections]=0'.format(plugins_per_page, plugins_order, page_number)
 
-    # Make the call, store reply in response.
+    # Make the call, store reply from API in response.
     response = requests.get(url)
 
-    # Store only the JSON portion of the response in json_data
-    json_data = response.json()
+    # Store only the JSON portion of the response in response
+    response_json = response.json()
 
-    # Get the total number of pages of results available using configured variables above.
-    num_pages = json_data['info']['pages']
+    # Get the total number of pages of results available.
+    avail_num_pages = response_json['info']['pages']
 
     # Store only the plugins portion of the JSON data
-    json_plugins = json_data['plugins']
+    json_plugins = response_json['plugins']
 
-    # For each JSON object in json_plugins, add an object to dictionary plugin
+    # For each JSON object in json_plugins, add an object to our plugins dictionary
     for id, plugin in enumerate(json_plugins):
             plugins[id] = plugin
     page_number += 1
 
+# Write the dictionary to a file as JSON.
 file = "wp-plugins.json"
 with open(os.path.join(select_path, file), 'a+', encoding='utf-8', errors="replace") as outfile:
     json.dump(json_plugins, outfile, sort_keys=False, indent=4)

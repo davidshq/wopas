@@ -13,7 +13,7 @@ def ask_setup_questions(avail_num_results):
         plugins_per_page = 250
     else:
         plugins_per_page = int(plugins_per_page)
-    print('The WordPress.org API supports returning results ordered by popularity, search, tag, and author. Currently WOPAS only supports ordering by popularity.')
+    print('The WordPress.org API supports returning results ordered by popularity, search, tag, and author.')
     plugins_order = input('In what order do you want the results returned? [Default: popular]')
     if not plugins_order:
         plugins_order = 'popular'

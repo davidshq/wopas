@@ -11,4 +11,4 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 - Currently, WOPAS is setup to run non-interactively. To run interactively, adjust source code as indicated in source comments.
 
 # Release History
-The current version is 1.0. The notes were starting to get lengthy, see RELEASE_NOTES.md for details.
+The notes were starting to get lengthy, see RELEASE_NOTES.md for details.
