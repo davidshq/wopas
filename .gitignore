@@ -16,3 +16,4 @@ env/
 /wopas-git.sln
 /__pycache__
 learn/php_object_returned_by_plugin_info.txt
+.vscode/launch.json
