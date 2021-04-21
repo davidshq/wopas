@@ -17,3 +17,5 @@ env/
 /__pycache__
 learn/php_object_returned_by_plugin_info.txt
 .vscode/launch.json
+wopas/wp-plugins.json
+wp.sqlite
