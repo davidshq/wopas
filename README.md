@@ -9,5 +9,9 @@ Please use responsibly (aka, don't hammer the WordPress.org servers!)
 - WOPAS uses pipenv for package/dependency management, this is preferred over requirements.txt
 - WOPAS uses the popular requests library for querying the WP.org API but then uses the native Python JSON library for manipulation of the returned results because the requests JSON functionality is fairly basic.
 
+
+# Resources Utilized
+- [SQLite Tutorial](https://www.sqlitetutorial.net)
+
 # Release History
 The notes were starting to get lengthy, see RELEASE_NOTES.md for details.

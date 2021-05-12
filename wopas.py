@@ -5,6 +5,8 @@ import sys
 import time
 import json
 import ask_setup_questions
+import sqlite3
+from sqlite3 import Error
 from ask_setup_questions import ask_setup_questions
 import use_preset_values
 from use_preset_values import use_preset_values
@@ -60,7 +62,40 @@ while page_number is not last_page + 1:
     page_number += 1
 
 # Write the dictionary to a file as JSON.
-file = "wp-plugins.json"
-with open(os.path.join(select_path, file), 'a+', encoding='utf-8', errors="replace") as outfile:
-    json.dump(json_plugins, outfile, sort_keys=False, indent=4)
+def use_json():
+    
+    file = "wp-plugins.json"
+    with open(os.path.join(select_path, file), 'a+', encoding='utf-8', errors="replace") as outfile:
+        json.dump(json_plugins, outfile, sort_keys=False, indent=4)
+
+# Connect to SQLite DB
+def connect_sqlite(db_file):
+    conn = None
+
+    try:
+        conn = sqlite3.connect(db_file)
+        print(sqlite3.version)
+    except Error as e:
+        print(e)
+    finally:
+        if conn:
+            conn.close()
+
+# Use SQLite for data storage
+def use_sqlite():
+    connect_sqlite('results\wopas.sqlite')
+    print("Goodbye")
+
+# Will we be using JSON or SQLite for data storage?
+data_storage_query = input('Do you want to use JSON or SQLite as your data storage? (json or sqlite)')
+
+if data_storage_query == 'json':
+    use_json()
+elif data_storage_query == 'sqlite':
+    use_sqlite()
+
+
+
+
+
 
