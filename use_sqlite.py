@@ -1,5 +1,5 @@
 import sqlite3
-from wopas import connect_sqlite
+import connect_sqlite
 
 # Use SQLite for data storage
 def use_sqlite():

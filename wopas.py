@@ -63,24 +63,6 @@ while page_number is not last_page + 1:
             plugins[id] = plugin
     page_number += 1
 
-# Connect to SQLite DB
-def connect_sqlite(db_file):
-    """ create a database connection to the SQLite db
-        specified by db_file
-    :param db_file: db file
-    :return: Connection object or None
-    """
-    conn = None
-
-    try:
-        conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()
-
 # Will we be using JSON or SQLite for data storage?
 data_storage_query = input('Do you want to use JSON or SQLite as your data storage? (json or sqlite)')
 
