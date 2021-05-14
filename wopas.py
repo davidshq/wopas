@@ -12,6 +12,7 @@ import use_preset_values
 from use_preset_values import use_preset_values
 import get_num_of_plugins
 from get_num_of_plugins import get_num_of_plugins
+from create_json import create_json
 
 # Get the total number of plugins available from the WordPress.org Plugin API.
 avail_num_results = get_num_of_plugins()
@@ -61,15 +62,13 @@ while page_number is not last_page + 1:
             plugins[id] = plugin
     page_number += 1
 
-# Write the dictionary to a file as JSON.
-def use_json():
-    
-    file = "wp-plugins.json"
-    with open(os.path.join(select_path, file), 'a+', encoding='utf-8', errors="replace") as outfile:
-        json.dump(json_plugins, outfile, sort_keys=False, indent=4)
-
 # Connect to SQLite DB
 def connect_sqlite(db_file):
+    """ create a database connection to the SQLite db
+        specified by db_file
+    :param db_file: db file
+    :return: Connection object or None
+    """
     conn = None
 
     try:
@@ -84,18 +83,15 @@ def connect_sqlite(db_file):
 # Use SQLite for data storage
 def use_sqlite():
     connect_sqlite('results\wopas.sqlite')
+
     print("Goodbye")
 
 # Will we be using JSON or SQLite for data storage?
 data_storage_query = input('Do you want to use JSON or SQLite as your data storage? (json or sqlite)')
 
 if data_storage_query == 'json':
-    use_json()
+    create_json(select_path, json_plugins)
 elif data_storage_query == 'sqlite':
     use_sqlite()
-
-
-
-
 
 
