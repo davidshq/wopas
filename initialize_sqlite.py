@@ -1,20 +1,6 @@
 import sqlite3
 from sqlite3 import Error
-
-def connect_sqlite(db_file):
-    """ create a db connection to the SQLite database
-    :param db_file: database file
-    :return: Connection object or None
-    """
-
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        return conn
-    except Error as e:
-        print(e)
-
-    return conn
+import use_sqlite
 
 def create_table(conn, create_table_sql):
     """ create a table from the create_table_sql statement
@@ -98,8 +84,11 @@ def main():
 
         create_table(conn, sql_create_images_table)
 
+        conn.close()
+
     else:
         print("Error! cannot create the database connection.")
+    
 
 if __name__ == '__main__':
     main()
