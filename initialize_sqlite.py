@@ -34,7 +34,8 @@ def main():
     
     sql_create_authors_table = """CREATE TABLE IF NOT EXISTS authors (
                                     id integer PRIMARY KEY,
-                                    name text NOT NULL
+                                    author text NOT NULL,
+                                    author_profile NOT NULL
     );"""
 
     sql_create_plugins_table = """CREATE TABLE IF NOT EXISTS plugins (
@@ -47,34 +48,56 @@ def main():
                                     tested text,
                                     requires_php text,
                                     compatibility text,
-                                    rating integer,
-                                    ratings_1 integer,
-                                    ratings_2 integer,
-                                    ratings_3 integer,
-                                    ratings_4 integer,
-                                    ratings_5 integer,
                                     num_ratings integer,
                                     threads integer,
                                     threads_resolved integer,
-                                    downloaded integer,
+                                    downloads integer,
                                     added date,
                                     homepage text,
                                     short_description text,
                                     description text,
                                     download_link text,
-                                    screenshots text,
                                     tags text,
                                     versions text,
                                     donate text,
+                                    current integer,
                                     FOREIGN KEY (author_id) REFERENCES authors (id)
     );"""
 
+    sql_create_ratings_table = """CREATE TABLE IF NOT EXISTS ratings (
+                                    id INTEGER PRIMARY KEY,
+                                    computed_rating text,
+                                    ratings_1 text,
+                                    ratings_2 text,
+                                    ratings_3 text,
+                                    ratings_4 text,
+                                    ratings_5 text,
+                                    timestamp date,
+                                    plugin_id integer,
+                                    FOREIGN KEY (plugin_id) REFERENCES plugins (id)
+    );"""
+
+    sql_create_images_table = """CREATE TABLE IF NOT EXISTS images (
+                                    id INTEGER PRIMARY KEY,
+                                    url text,
+                                    plugin_id integer,
+                                    FOREIGN KEY (plugin_id) REFERENCES plugins (id)
+    );"""
+
+
+    # Instantiate our db connection
     conn = connect_sqlite(db_file)
 
+    # create tables
     if conn is not None:
         create_table(conn, sql_create_authors_table)
 
         create_table(conn, sql_create_plugins_table)
+
+        create_table(conn, sql_create_ratings_table)
+
+        create_table(conn, sql_create_images_table)
+
     else:
         print("Error! cannot create the database connection.")
 
