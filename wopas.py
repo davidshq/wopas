@@ -3,13 +3,12 @@ import ask_setup_questions
 from ask_setup_questions import ask_setup_questions
 import use_preset_values
 from use_preset_values import use_preset_values
-import get_num_of_plugins
-from get_num_of_plugins import get_num_of_plugins
+from count_plugins import count_plugins
 from create_json import create_json
 from use_sqlite import use_sqlite
 
 # Get the total number of plugins available from the WordPress.org Plugin API.
-avail_num_results = get_num_of_plugins()
+avail_num_results = count_plugins()
 
 # Will we be running interactively or using presets?
 interactive_query = input('Do you want to configure how WOPAS queries the API? (Y or N)')

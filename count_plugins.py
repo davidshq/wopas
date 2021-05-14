@@ -2,7 +2,7 @@ import requests
 
 # Get the total number of WordPress plugins available from the WordPress.org Plugin API
 
-def get_num_of_plugins():
+def count_plugins():
     # API call we are making.
     url = 'https://api.wordpress.org/plugins/info/1.1/?action=query_plugins& \
     request[browse]=popular'
