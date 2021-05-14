@@ -1,8 +1,3 @@
-import requests
-import html
-import sys
-import time
-import json
 import os.path
 
 def ask_setup_questions(avail_num_results):

@@ -1,12 +1,5 @@
 import requests
-import os.path
-import html
-import sys
-import time
-import json
 import ask_setup_questions
-import sqlite3
-from sqlite3 import Error
 from ask_setup_questions import ask_setup_questions
 import use_preset_values
 from use_preset_values import use_preset_values

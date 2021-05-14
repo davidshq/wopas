@@ -1,8 +1,4 @@
 import requests
-import html
-import sys
-import time
-import json
 
 # Get the total number of WordPress plugins available from the WordPress.org Plugin API
 
