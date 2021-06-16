@@ -20,7 +20,6 @@ def use_sqlite(db_file, plugins = ''):
 
 def add_data(conn, plugins):
     for plugin in plugins:
-        sql_add_plugin = f"""INSERT INTO authors VALUES {plugin.name}, {plugin.author_profile};
-        """
+        sql_add_plugin = "INSERT INTO authors VALUES (?, ?)", (plugin["name"], plugin["profile"])
         cur = conn.cursor()
         cur.execute(sql_add_plugin)
