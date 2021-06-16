@@ -27,3 +27,4 @@ def add_data(conn, plugins):
         print(plugin["name"])
         print(plugin["author_profile"])
         cur.execute("INSERT INTO authors VALUES (?, ?, ?)", (None, plugin["name"], plugin["author_profile"]))
+        conn.commit()
