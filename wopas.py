@@ -59,4 +59,4 @@ data_storage_query = input('Do you want to use JSON or SQLite as your data stora
 if data_storage_query == 'json':
     create_json(select_path, json_plugins)
 elif data_storage_query == 'sqlite':
-    use_sqlite('wopas.db', json_plugins)
+    use_sqlite('wopas.db', plugins)
