@@ -19,3 +19,5 @@ learn/php_object_returned_by_plugin_info.txt
 .vscode/launch.json
 wopas/wp-plugins.json
 wopas.sqlite
+wopas.db
+wopas.db-journal

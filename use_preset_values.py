@@ -6,7 +6,7 @@ import os.path
 # int(round(avail_num_results/plugins_per_page))
 
 def use_preset_values(avail_num_results):
-    plugins_per_page = 250 # 10
+    plugins_per_page = 10 # 250
     plugins_order = 'popular'
     starting_page = 1
     ending_page = 3

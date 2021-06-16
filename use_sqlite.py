@@ -12,14 +12,18 @@ def use_sqlite(db_file, plugins = ''):
 
     try:
         conn = sqlite3.connect(db_file)
+        if plugins != '':
+            add_data(conn, plugins)
+        return conn
     except Error as e:
         print(e)
         return conn
     
-    add_data(conn, plugins)
+
 
 def add_data(conn, plugins):
-    for plugin in plugins:
-        sql_add_plugin = "INSERT INTO authors VALUES (?, ?)", (plugin["name"], plugin["profile"])
+    for index, plugin in plugins.items():
         cur = conn.cursor()
-        cur.execute(sql_add_plugin)
+        print(plugin["name"])
+        print(plugin["author_profile"])
+        cur.execute("INSERT INTO authors VALUES (?, ?, ?)", (None, plugin["name"], plugin["author_profile"]))

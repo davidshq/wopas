@@ -16,16 +16,16 @@ def create_table(conn, create_table_sql):
         print(e)
 
 def main():
-    db_file = r'wopas/wopas.db'
+    db_file = r'wopas.db'
     
     sql_create_authors_table = """CREATE TABLE IF NOT EXISTS authors (
-                                    id integer PRIMARY KEY,
+                                    id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
                                     author text NOT NULL,
                                     author_profile NOT NULL
     );"""
 
     sql_create_plugins_table = """CREATE TABLE IF NOT EXISTS plugins (
-                                    id integer PRIMARY KEY,
+                                    id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
                                     name text NOT NULL,
                                     slug text NOT NULL,
                                     version text NOT NULL,
