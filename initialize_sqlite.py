@@ -1,6 +1,6 @@
 import sqlite3
 from sqlite3 import Error
-import use_sqlite
+from use_sqlite import use_sqlite
 
 def create_table(conn, create_table_sql):
     """ create a table from the create_table_sql statement
@@ -16,7 +16,7 @@ def create_table(conn, create_table_sql):
         print(e)
 
 def main():
-    db_file = 'wopas.sqlite'
+    db_file = r'wopas/wopas.db'
     
     sql_create_authors_table = """CREATE TABLE IF NOT EXISTS authors (
                                     id integer PRIMARY KEY,
@@ -72,7 +72,7 @@ def main():
 
 
     # Instantiate our db connection
-    conn = connect_sqlite(db_file)
+    conn = use_sqlite(db_file)
 
     # create tables
     if conn is not None:

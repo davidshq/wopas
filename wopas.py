@@ -1,7 +1,5 @@
 import requests
-import ask_setup_questions
 from ask_setup_questions import ask_setup_questions
-import use_preset_values
 from use_preset_values import use_preset_values
 from count_plugins import count_plugins
 from create_json import create_json
@@ -55,10 +53,10 @@ while page_number is not last_page + 1:
             plugins[id] = plugin
     page_number += 1
 
-# Will we be using JSON or SQLite for data storage?
+# Will we be using JSON or SQLiteN for data storage?
 data_storage_query = input('Do you want to use JSON or SQLite as your data storage? (json or sqlite)')
 
 if data_storage_query == 'json':
     create_json(select_path, json_plugins)
 elif data_storage_query == 'sqlite':
-    use_sqlite()
+    use_sqlite('wopas.db', json_plugins)

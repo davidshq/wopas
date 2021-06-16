@@ -1,8 +1,26 @@
 import sqlite3
-import connect_sqlite
+from sqlite3 import Error
 
-# Use SQLite for data storage
-def use_sqlite():
-    connect_sqlite('results\wopas.sqlite')
+def use_sqlite(db_file, json_plugins = ''):
+    """ 
+    create connection to the SQLite database
+    :param db_file: database file
+    :return: Connection object or None
+    """
 
-    print("Goodbye")
+    conn = None
+
+    try:
+        conn = sqlite3.connect(db_file)
+    except Error as e:
+        print(e)
+        return conn
+    
+    add_data(conn, json_plugins)
+
+def add_data(conn, json_plugins):
+    for plugin in json_plugins:
+        sql_add_plugin = f"""INSERT INTO authors VALUES {plugin.name}, {plugin.author_profile};
+        """
+        cur = conn.cursor()
+        cur.execute(sql_add_plugin)
