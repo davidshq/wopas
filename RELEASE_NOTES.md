@@ -1,3 +1,6 @@
+- 0.1.2 - 1/05/23:
+  - Update `README.md`.
+  - Use Linux path as default.
 - 0.1.1 - 3/24/19:
   - Refactored several variables to be more explicit.
   - Additional code comments.
