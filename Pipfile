@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-certifi = "==2023.7.22"
+certifi = "==2024.7.4"
 chardet = "==3.0.4"
 idna = "==3.7"
 requests = ">=2.19.1"
